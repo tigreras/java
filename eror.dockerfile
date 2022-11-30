@@ -1,6 +1,4 @@
 FROM node:lts-alpine AS build-stage
-ENV HTTP_PROXY http://10.17.10.42:8080
-ENV HTTPS_PROXY http://10.17.10.42:8080
 RUN npm i -g @quasar/cli
 WORKDIR /home/app
 COPY . /home/app
@@ -8,8 +6,6 @@ RUN npm install
 RUN npm run ${BUILD_ENV}
 
 FROM nginx:latest
-ENV HTTP_PROXY http://10.17.10.42:8080
-ENV HTTPS_PROXY http://10.17.10.42:8080
 COPY --from=build-stage /home/app/mime.types /etc/nginx/mime.types
 COPY --from=build-stage /home/app/nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
