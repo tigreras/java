@@ -1,3 +1,6 @@
+ENV HTTP_PROXY http://10.17.10.42:8080
+ENV HTTPS_PROXY http://10.17.10.42:8080
+
 FROM node:lts-alpine AS build-stage
 RUN npm i -g @quasar/cli
 WORKDIR /home/app
